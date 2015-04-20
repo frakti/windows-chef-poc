@@ -15,23 +15,3 @@ file 'c:\inetpub\wwwroot\Default.htm' do
   </body>
 </html>'
 end
-
-application_path = "#{node['iis']['docroot']}\\simple\\poc"
-
-iis_pool 'SimpleAppPool' do
-  runtime_version '4.0'
-  action [ :add, :stop ]
-end
-
-directory application_path do
-  inherits true
-  recursive true
-end
-
-iis_app 'Default Web Site' do
-  path '/poc'
-  application_pool 'SimpleAppPool'
-  physical_path application_path
-  enabled_protocols 'http,net.pipe'
-  action :add
-end
