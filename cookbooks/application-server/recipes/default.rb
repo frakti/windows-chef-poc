@@ -15,3 +15,6 @@ file 'c:\inetpub\wwwroot\Default.htm' do
   </body>
 </html>'
 end
+
+include_recipe 'application-server::service'
+include_recipe 'application-server::website'

@@ -39,3 +39,7 @@ remote_file "#{cache}\\websites.zip" do
   notifies :unzip, "windows_zipfile[#{application_path}]", :immediately
   notifies :start, 'iis_pool[SimpleAppPool]'
 end
+
+iis_pool 'SimpleAppPool' do
+  action :start
+end
