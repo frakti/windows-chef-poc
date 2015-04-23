@@ -21,20 +21,23 @@ windows_zipfile services_path do
   action :nothing
 end
 
-exe_path = "#{services_path}\\Poc.Deploy.WriteWinServiceHost.exe"
+exe_path = "#{services_path}\\Poc.Deploy.WriteWinService.exe"
 
 windows_package 'Install-EmploymentWcfService' do
   installer_type :custom
-  options "install start"
+  options "install -username:.\\#{service_runner} -password:#{service_runner_pwd} start"
   source exe_path
+  timeout 15
   only_if { File.exists?(exe_path) }
   action :nothing
 end
 
 windows_package 'Uninstall-EmploymentWcfService' do
+  ignore_failure true
   installer_type :custom
   options 'uninstall'
   source exe_path
+  timeout 15
   only_if { File.exists?(exe_path) }
   action :nothing
 end
@@ -50,10 +53,13 @@ remote_file "#{cache}\\services.zip" do
   notifies :install,  "windows_package[Uninstall-EmploymentWcfService]", :immediately
   notifies :unzip,    "windows_zipfile[#{services_path}]", :immediately
   notifies :install,  "windows_package[Install-EmploymentWcfService]", :immediately
-  notifies :start,    "service[EmploymentService]"
+  notifies :start,    "service[EmpService]"
 end
 
-service 'EmploymentService'
+template "#{services_path}\\App.connections.config" do
+  source 'App.connections.config.erb'
 
+  notifies :restart,  "service[EmpService]"
+end
 
-
+service 'EmpService'

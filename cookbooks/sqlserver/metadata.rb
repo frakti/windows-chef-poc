@@ -6,3 +6,4 @@ long_description 'Installs/Configures sqlserver'
 version          '0.1.0'
 
 depends 'sql_server'
+depends 'windows_firewall'
