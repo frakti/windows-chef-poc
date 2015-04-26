@@ -1,6 +1,7 @@
 name             'sqlserver'
 maintainer       'Tomasz Sikora'
-license          'All rights reserved'
+maintainer_email 'frakti7@gmail.com'
+license          'MIT'
 description      'Installs/Configures sqlserver'
 long_description 'Installs/Configures sqlserver'
 version          '0.2.0'

@@ -25,7 +25,7 @@ Vagrant.configure(2) do |config|
       server.vm.network :private_network, ip: server_settings[:ip]
       server.vm.hostname = server_settings[:hostname]
 
-      config.vm.provision "chef_client" do |chef|
+      server.vm.provision "chef_client" do |chef|
       #  chef.log_level = :debug
         chef.chef_server_url = "https://#{chef_server_ip}/organizations/frakti"
         chef.validation_key_path = ".chef/frakti-validator.pem"
@@ -40,19 +40,22 @@ Vagrant.configure(2) do |config|
 
     # Chef-server
 
-    config.vm.define :chef, autostart: false do |server|
-      server.vm.box = "chef/centos-6.6"
+    config.vm.define :chef, autostart: false do |chef_server|
+      chef_server.vm.box = "chef/centos-6.6"
 
-      server.vm.network "private_network", ip: chef_server_ip
-      server.vm.hostname = "chef-server"
+      chef_server.vm.network "private_network", ip: chef_server_ip
+      # Self-signed certs generated while installation are signed to domain being
+      # a 'hostname' of the VM. Since our knife.rb points to chef-server via
+      # IP the hostname must be the same to make SSL connection working.
+      chef_server.vm.hostname = chef_server_ip
 
-      server.vm.provider :virtualbox do |vb|
+      chef_server.vm.provider :virtualbox do |vb|
         vb.name    = "#{chef_server_ip} - Chef Server"
         vb.customize ["modifyvm", :id, "--memory", "2048"]
       end
 
-      config.vm.provision "shell", path: 'install_chef_server.sh'
-      config.vm.provision "shell", path: 'configure_artefacts_repo.sh'
+      chef_server.vm.provision "shell", path: 'install_chef_server.sh'
+      chef_server.vm.provision "shell", path: 'configure_artefacts_repo.sh'
     end
   end
 

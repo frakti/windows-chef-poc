@@ -1,6 +1,7 @@
 name             'application-server'
 maintainer       'Tomasz Sikora'
-license          'all_rights'
+maintainer_email 'frakti7@gmail.com'
+license          'MIT'
 description      'Installs/Configures application-server'
 long_description 'Installs/Configures application-server'
 version          '0.6.0'
