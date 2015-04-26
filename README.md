@@ -4,6 +4,8 @@ The aim of this Proof of Concept project is to see how Chef deals with provision
 - AS a user I WANT to increase employer salary AND persist it into database
 - AS a returning user I WANT to see current salary value fetched from redis cache
 
+If you're wondering why I'm using locally chef-server when I could go with chef-zero, it is because I would like to pay with environment more closer to production.
+
 Architecture
 ------------
 - *load balancer*
@@ -33,7 +35,7 @@ This is one time operation. To simplify it I recommend to use existing Packer te
 Steps below will build and configure Chef Sever 12 and artefacts repository.
 Scripts are using installation of version 12.0.8, if you want to use different one change `install_chef_server.sh` before proceed further.
 
-1. Build chef-server using `vagrant up chef` (it will take a while)
+1. Build chef-server using `vagrant up chef` (this will take a while). *Please note:* while provisioning script downloads RPM package (~470MiB) which is stored next to Vagrantfile, so there is no need re-downloading the package when you destroy and build VM again.
 2. Run `knife ssl fetch` to download private cert from chef-server. Verify if it works fine by running `knife ssl check` and `knife client list`
 4. You can sign in on https://10.0.1.8/ with credentials: *frakti* / *JaCierpieDole*
 5. Artefacts repository is available under http://10.0.1.8:23000/ and points to `artefacts` dir

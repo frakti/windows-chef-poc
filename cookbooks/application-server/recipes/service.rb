@@ -3,7 +3,7 @@ services_path = 'C:\source\services'
 version = node['service']['version']
 
 service_runner = 'ServiceRunner'
-service_runner_pwd = 'ServiceRunner1234'
+service_runner_pwd = 'JaCierpieDole1234'
 
 user service_runner do
   password service_runner_pwd
