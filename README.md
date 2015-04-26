@@ -24,6 +24,7 @@ Pre-requisites
 
 Steps to setup environment
 --------------------------
+
 ### Prepare Windows Server 2012 box
 
 This is one time operation. To simplify it I recommend to use existing Packer template from [joefitzgerald/packer-windows](https://github.com/joefitzgerald/packer-windows). Clone the repo and run: `packer build windows_2012_r2.json`. After it's finished in the same dir you will get `windows_2012_r2_virtualbox.box` which can be imported to Vagrant using `vagrant box add win_server_2012 windows_2012_r2_virtualbox.box`.
@@ -44,9 +45,21 @@ Scripts are using installation of version 12.0.8, if you want to use different o
 
 - run `sh upload.sh`
 - To create SQL Server instance run `vagrant up sql`
-- To create Application Server instance run `vagrant up iis1` (It may happen you need to reboot the machine and re-provision it, to do that run `vagrant reload iis1` and then `vagrant provision iis1`)
-- Load Balancer cookbook - in progress
-- Application will be available under http://10.0.1.10/
+- To create Application Server instance run `vagrant up iis1`
+- Unfortunately both probably will fail while provisioning fist time with an error:
+
+> No mapping between account names and security IDs was done.
+
+It happens when add new user to Administrators group. I didn't yet find any solution for this Windows-specific issue. Temporary what you need to do is:
+  - reboot with `vagrant reload iis1`
+  - re-provision with `vagrant provision iis1`
+
+Application will be available under http://10.0.1.10/
+
+TODOs
+-----
+- Configure load balancer using ARR
+- use Chef Search instead of hardcoded IP in db connection string
 
 Contributors
 ------------
