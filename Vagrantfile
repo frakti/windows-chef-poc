@@ -4,10 +4,10 @@ servers = [
  { id: :iis2, ip: "10.0.1.12", hostname: "iis2",      role: 'app_server', vcpu: 1, ram: 1024 },
  { id: :sql,  ip: "10.0.1.14", hostname: "sqlserver", role: 'sqlserver',  vcpu: 1, ram: 1024 }
 ]
+chef_server_ip = '10.0.1.8'
+
 
 Vagrant.configure(2) do |config|
-
-  #config.windows.set_work_network = true
 
   servers.each do |server_settings|
     config.vm.define server_settings[:id] do |server|
@@ -27,32 +27,31 @@ Vagrant.configure(2) do |config|
 
       config.vm.provision "chef_client" do |chef|
       #  chef.log_level = :debug
-        chef.chef_server_url = "https://10.0.1.8/organizations/frakti"
+        chef.chef_server_url = "https://#{chef_server_ip}/organizations/frakti"
         chef.validation_key_path = ".chef/frakti-validator.pem"
         chef.validation_client_name = "frakti-validator"
         chef.delete_node = true
         chef.delete_client = true
         chef.file_cache_path = 'c:/var/chef/cache'
 
-        #chef.cookbooks_path = [ "cookbooks", "v-cookbooks" ]
-        #chef.roles_path = "roles"
-
         chef.add_role server_settings[:role]
-        #chef.add_recipe server_settings[:recipe]
       end
     end
 
+    # Chef-server
 
-    config.vm.define 'chef' do |server|
+    config.vm.define :chef, autostart: false do |server|
       server.vm.box = "chef/centos-6.6"
 
-      server.vm.network "private_network", ip: "10.0.1.8"
-      server.vm.hostname = "10.0.1.8"
+      server.vm.network "private_network", ip: chef_server_ip
+      server.vm.hostname = "chef-server"
 
       server.vm.provider :virtualbox do |vb|
-        vb.name    = "10.0.1.8 - Chef Server"
+        vb.name    = "#{chef_server_ip} - Chef Server"
         vb.customize ["modifyvm", :id, "--memory", "2048"]
       end
+
+      config.vm.provision "shell", path: 'install_chef_server.sh'
     end
   end
 
