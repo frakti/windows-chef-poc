@@ -20,6 +20,7 @@ Vagrant.configure(2) do |config|
         v.memory  = server_settings[:ram]
         v.cpus    = server_settings[:vcpu]
         v.customize [ "modifyvm", :id, "--cpuexecutioncap", "90" ]
+        v.customize [ "modifyvm", :id, "--nicpromisc2", "allow-all" ]
       end
 
       server.vm.network :private_network, ip: server_settings[:ip]
@@ -37,26 +38,26 @@ Vagrant.configure(2) do |config|
         chef.add_role server_settings[:role]
       end
     end
+  end
 
-    # Chef-server
+  # Chef-server
 
-    config.vm.define :chef, autostart: false do |chef_server|
-      chef_server.vm.box = "chef/centos-6.6"
+  config.vm.define :chef, autostart: false do |chef_server|
+    chef_server.vm.box = "chef/centos-6.6"
 
-      chef_server.vm.network "private_network", ip: chef_server_ip
-      # Self-signed certs generated while installation are signed to domain being
-      # a 'hostname' of the VM. Since our knife.rb points to chef-server via
-      # IP the hostname must be the same to make SSL connection working.
-      chef_server.vm.hostname = chef_server_ip
+    chef_server.vm.network "private_network", ip: chef_server_ip
+    # Self-signed certs generated while installation are signed to domain being
+    # a 'hostname' of the VM. Since our knife.rb points to chef-server via
+    # IP the hostname must be the same to make SSL connection working.
+    chef_server.vm.hostname = chef_server_ip
 
-      chef_server.vm.provider :virtualbox do |vb|
-        vb.name    = "#{chef_server_ip} - Chef Server"
-        vb.customize ["modifyvm", :id, "--memory", "2048"]
-      end
-
-      chef_server.vm.provision "shell", path: 'install_chef_server.sh'
-      chef_server.vm.provision "shell", path: 'configure_artefacts_repo.sh'
+    chef_server.vm.provider :virtualbox do |vb|
+      vb.name    = "#{chef_server_ip} - Chef Server"
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
     end
+
+    chef_server.vm.provision "shell", path: 'install_chef_server.sh'
+    chef_server.vm.provision "shell", path: 'configure_artefacts_repo.sh'
   end
 
 end
