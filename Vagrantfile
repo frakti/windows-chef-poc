@@ -52,6 +52,7 @@ Vagrant.configure(2) do |config|
       end
 
       config.vm.provision "shell", path: 'install_chef_server.sh'
+      config.vm.provision "shell", path: 'configure_artefacts_repo.sh'
     end
   end
 
