@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
 
   servers.each do |server_settings|
     config.vm.define server_settings[:id] do |server|
-      server.vm.box = "win"
+      server.vm.box = "win_server_2012"
       server.vm.guest = :windows
       server.vm.communicator = :winrm
 
