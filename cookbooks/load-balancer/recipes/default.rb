@@ -5,8 +5,9 @@ iis_arr_server_farm 'SimpleAppFarm' do
   servers [ '10.0.1.11', '10.0.1.12' ]
 end
 
-# http://www.iis.net/learn/extensions/configuring-application-request-routing-(arr)/define-and-configure-an-application-request-routing-server-farm
+include_recipe 'load-balancer::round_robin'
 
+# http://www.iis.net/learn/extensions/configuring-application-request-routing-(arr)/define-and-configure-an-application-request-routing-server-farm
 # To route all incoming HTTP requests to the server farm.
 # This step is only required when creating the server farm using appcmd (used in the hood).
 # When creating the server farm using the UI, the URL rewrite rules are created automatically.

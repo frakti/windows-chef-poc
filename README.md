@@ -58,7 +58,7 @@ The app as well as static page on root (http://10.0.1.10/) show response origin 
 
 #### Issues
 
-1. When adding new user to Administrators group, provisioning fails at fist time with an error:
+**#1** When adding new user to Administrators group, provisioning fails at fist time with an error:
 
 > No mapping between account names and security IDs was done.
 
@@ -66,7 +66,7 @@ Temporary what you need to do is:
   - reboot with `vagrant reload <node_name>`
   - re-provision with `vagrant provision <node_name>`
 
-2. While provisioning SQL Server you will get an error:
+**#2** While provisioning SQL Server you will get an error:
 
 > The specified module 'SqlPs' was not loaded because no valid module file was found in any module directory.
 
