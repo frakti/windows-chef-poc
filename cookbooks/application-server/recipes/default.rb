@@ -11,11 +11,12 @@ service 'w3svc' do
 end
 
 file 'c:\inetpub\wwwroot\Default.htm' do
-  content '<html>
+  content "<html>
   <body>
     <h1>Windows-based infrastructure PoC</h1>
+    <span>Response comes from server: <strong>#{node['hostname']}</strong></span>
   </body>
-</html>'
+</html>"
 end
 
 include_recipe 'application-server::service'

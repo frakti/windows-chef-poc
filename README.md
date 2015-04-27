@@ -44,22 +44,38 @@ Scripts are using installation of version 12.0.8, if you want to use different o
 ### Build application infrastructure
 
 - run `sh upload.sh`
-- To create SQL Server instance run `vagrant up sql`
-- To create Application Server instance run `vagrant up iis1`
-- Unfortunately both probably will fail while provisioning fist time with an error:
+- Create SQL Server instance by running `vagrant up sql` (issue #1 and #2)
+- Create Load Balancer instance by run `vagrant up lb`
+- Create Application Server instances by running `vagrant up iis1 iis2` (issue #1)
+
+Unfortunately there are still idempotency (**Windows-specific**) issues, and few nodes won't be provisioned completely at first run. For more details check **Issues** below.
+
+Application will be available under http://10.0.1.10/poc/
+- *iis1* app is working on http://10.0.1.11/poc/
+- *iis2* app is working on http://10.0.1.12/poc/
+
+The app as well as static page on root (http://10.0.1.10/) show response origin to visualize working load balancing.
+
+#### Issues
+
+1. When adding new user to Administrators group, provisioning fails at fist time with an error:
 
 > No mapping between account names and security IDs was done.
 
-It happens when add new user to Administrators group. I didn't yet find any solution for this Windows-specific issue. Temporary what you need to do is:
-  - reboot with `vagrant reload iis1`
-  - re-provision with `vagrant provision iis1`
+Temporary what you need to do is:
+  - reboot with `vagrant reload <node_name>`
+  - re-provision with `vagrant provision <node_name>`
 
-Application will be available under http://10.0.1.10/poc/
+2. While provisioning SQL Server you will get an error:
+
+> The specified module 'SqlPs' was not loaded because no valid module file was found in any module directory.
+
+Solution for this is to run *provisioning* again: `vagrant provision sql`.
 
 TODOs
 -----
-- Configure load balancer using ARR
-- use Chef Search instead of hardcoded IP in db connection string
+- Fix idempotentcy issues.
+- Use Chef Search instead of hardcoded IP in db connection string.
 
 Contributors
 ------------
