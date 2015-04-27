@@ -1,8 +1,8 @@
 servers = [
- { id: :lb,   ip: "10.0.1.10", hostname: "lb",        role: 'lb',         vcpu: 1, ram: 1024 },
+ { id: :lb,   ip: "10.0.1.10", hostname: "lb",        role: 'lb',         vcpu: 2, ram: 1024 },
  { id: :iis1, ip: "10.0.1.11", hostname: "iis1",      role: 'app_server', vcpu: 2, ram: 1024 },
- { id: :iis2, ip: "10.0.1.12", hostname: "iis2",      role: 'app_server', vcpu: 1, ram: 1024 },
- { id: :sql,  ip: "10.0.1.14", hostname: "sqlserver", role: 'sqlserver',  vcpu: 2, ram: 1536 }
+ { id: :iis2, ip: "10.0.1.12", hostname: "iis2",      role: 'app_server', vcpu: 2, ram: 1024 },
+ { id: :sql,  ip: "10.0.1.14", hostname: "sqlserver", role: 'sqlserver',  vcpu: 2, ram: 2048 }
 ]
 chef_server_ip = '10.0.1.8'
 
