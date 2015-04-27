@@ -18,6 +18,7 @@ Architecture
 
 Pre-requisites
 --------------
+- [Chef Development Kit](https://downloads.chef.io/chef-dk/)
 - [Vagrant](https://www.vagrantup.com/) to orchestrate VMs
 - [VirtualBox](https://www.virtualbox.org/)
 - [Packer](https://packer.io/) (unless you have already Windows box for vagrant)
