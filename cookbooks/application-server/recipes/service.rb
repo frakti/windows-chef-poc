@@ -5,25 +5,6 @@ version = node['service']['version']
 service_runner = 'ServiceRunner'
 service_runner_pwd = 'JaCierpieDole1234'
 
-# https://technet.microsoft.com/en-us/library/dn249921.aspx
-# Requires PowerShell >= 5, to work.
-
-# dsc_resource "User-Add-#{service_runner}" do
-#   resource :User
-#   property :UserName, service_runner
-#   property :FullName, service_runner
-#   property :Password, ps_credential(service_runner_pwd)
-#   property :PasswordChangeRequired, false
-#   property :PasswordNeverExpires, true
-#   property :Ensure, 'Present'
-# end
-
-# dsc_resource "Add-User-to-Administrators" do
-#   resource :Group
-#   property :GroupName, "Administrators"
-#   property :MembersToInclude, [ service_runner ]
-# end
-
 user service_runner do
   password service_runner_pwd
 end
