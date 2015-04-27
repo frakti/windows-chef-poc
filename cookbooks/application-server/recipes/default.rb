@@ -1,3 +1,5 @@
+::Chef::Recipe.send(:include, Windows::Helper)
+
 include_recipe 'application-server::redis'
 
 include_recipe 'iis::mod_aspnet45'

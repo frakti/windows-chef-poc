@@ -5,6 +5,25 @@ version = node['service']['version']
 service_runner = 'ServiceRunner'
 service_runner_pwd = 'JaCierpieDole1234'
 
+# https://technet.microsoft.com/en-us/library/dn249921.aspx
+# Requires PowerShell >= 5, to work.
+
+# dsc_resource "User-Add-#{service_runner}" do
+#   resource :User
+#   property :UserName, service_runner
+#   property :FullName, service_runner
+#   property :Password, ps_credential(service_runner_pwd)
+#   property :PasswordChangeRequired, false
+#   property :PasswordNeverExpires, true
+#   property :Ensure, 'Present'
+# end
+
+# dsc_resource "Add-User-to-Administrators" do
+#   resource :Group
+#   property :GroupName, "Administrators"
+#   property :MembersToInclude, [ service_runner ]
+# end
+
 user service_runner do
   password service_runner_pwd
 end
@@ -53,13 +72,13 @@ remote_file "#{cache}\\services.zip" do
   notifies :install,  "windows_package[Uninstall-EmploymentWcfService]", :immediately
   notifies :unzip,    "windows_zipfile[#{services_path}]", :immediately
   notifies :install,  "windows_package[Install-EmploymentWcfService]", :immediately
-  notifies :start,    "service[EmpService]"
+  notifies :start,    "service[Poc.Deploy.WriteWinServiceHost]"
 end
 
 template "#{services_path}\\App.connections.config" do
   source 'App.connections.config.erb'
 
-  notifies :restart,  "service[EmpService]"
+  notifies :restart,  "service[Poc.Deploy.WriteWinServiceHost]"
 end
 
-service 'EmpService'
+service 'Poc.Deploy.WriteWinServiceHost'

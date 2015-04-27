@@ -54,7 +54,7 @@ It happens when add new user to Administrators group. I didn't yet find any solu
   - reboot with `vagrant reload iis1`
   - re-provision with `vagrant provision iis1`
 
-Application will be available under http://10.0.1.10/
+Application will be available under http://10.0.1.10/poc/
 
 TODOs
 -----
