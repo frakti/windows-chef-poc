@@ -4,7 +4,7 @@ The aim of this Proof of Concept project is to see how Chef deals with provision
 - AS a user I WANT to increase employer salary AND persist it into database
 - AS a returning user I WANT to see current salary value fetched from redis cache
 
-If you're wondering why I'm using locally chef-server when I could go with chef-zero, it is because I would like to pay with environment more closer to production.
+If you're wondering why the heck I'm using locally chef-server when I could go with chef-zero instead, it is because I would like to pay with environment more closer to production and play around with this in isolated environment.
 
 Architecture
 ------------
