@@ -1,10 +1,10 @@
 The chef-repo for Windows-based infrastructure PoC
 ===================================================
 The aim of this Proof of Concept project is to see how Chef deals with provisioning Windows-specific environment in typical app Use Case. And then scale it.
-- AS a user I WANT to increase employer salary AND persist it into database
-- AS a returning user I WANT to see current salary value fetched from redis cache
+- *AS a user I WANT to increase employer salary AND persist it into database*
+- *AS a returning user I WANT to see current salary value fetched from redis cache*
 
-If you're wondering why the heck I'm using locally chef-server when I could go with chef-zero instead, it is because I would like to pay with environment more closer to production and play around with this in isolated environment.
+If you're wondering why the heck I'm using locally chef-server when I could go with chef-zero instead, it is because I would like to play with environment more closer to production and play around with this in isolated environment.
 
 Architecture
 ------------
