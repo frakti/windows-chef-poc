@@ -24,6 +24,7 @@ Pre-requisites
 - [Vagrant](https://www.vagrantup.com/) to orchestrate VMs
 - [VirtualBox](https://www.virtualbox.org/)
 - [Packer](https://packer.io/) (unless you have already Windows box for vagrant)
+- More than 8GiB of RAM for VMs for smooth work (but you can decrease it in *Vagrantfile*)
 
 Steps to setup environment
 --------------------------
@@ -78,6 +79,7 @@ TODOs
 - Fix idempotentcy issues.
 - Write some tests.
 - Use Chef Search instead of hardcoded IP in db connection string.
+- Disable maintenance mode on VMs while provisioning - it slows down machine performance.
 
 Contributors
 ------------
