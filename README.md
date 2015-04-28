@@ -63,9 +63,7 @@ The app as well as static page on root (http://10.0.1.10/) show response origin 
 
 > No mapping between account names and security IDs was done.
 
-Temporary what you need to do is:
-  - reboot with `vagrant reload <node_name>`
-  - re-provision with `vagrant provision <node_name>`
+Temporary what you need to do is invoke `vagrant reload <node_name> --provision`
 
 **#2** While provisioning SQL Server you will get an error:
 
