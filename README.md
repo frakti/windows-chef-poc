@@ -16,7 +16,7 @@ Architecture
   * Redis
 - *sqlserver* - SQL Server 2012 Express
 
-![PoC Infrastructure](infrastructure.jpg)
+![PoC Infrastructure](infrastructure.png)
 
 Pre-requisites
 --------------
