@@ -74,6 +74,7 @@ Solution for this is to run *provisioning* again: `vagrant provision sql`.
 TODOs
 -----
 - Fix idempotentcy issues.
+- Write some tests.
 - Use Chef Search instead of hardcoded IP in db connection string.
 
 Contributors
