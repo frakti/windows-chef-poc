@@ -16,6 +16,8 @@ Architecture
   * Redis
 - *sqlserver* - SQL Server 2012 Express
 
+![PoC Infrastructure](infrastructure.jpg)
+
 Pre-requisites
 --------------
 - [Chef Development Kit](https://downloads.chef.io/chef-dk/)
