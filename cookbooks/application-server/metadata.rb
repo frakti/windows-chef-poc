@@ -4,7 +4,7 @@ maintainer_email 'frakti7@gmail.com'
 license          'MIT'
 description      'Installs/Configures application-server'
 long_description 'Installs/Configures application-server'
-version          '0.7.0'
+version          '0.8.0'
 
 depends 'windows'
 depends 'iis'

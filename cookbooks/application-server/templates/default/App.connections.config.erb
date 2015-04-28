@@ -1,6 +1,6 @@
 <connectionStrings>
   <clear/>
   <add name="EmployConnectionString"
-       connectionString="Data Source=10.0.1.14\SQLEXPRESS;Initial Catalog=EmployeesData;User ID=sa;Password=JaCierpieDole-1234"
+       connectionString="Data Source=<%= @db_host%>\SQLEXPRESS;Initial Catalog=EmployeesData;User ID=<%= @db_user%>;Password=<%= @db_pass%>"
        providerName="System.Data.SqlClient"/>
 </connectionStrings>

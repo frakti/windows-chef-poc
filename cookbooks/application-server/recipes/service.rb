@@ -56,9 +56,15 @@ remote_file "#{cache}\\services.zip" do
   notifies :start,    "service[Poc.Deploy.WriteWinServiceHost]"
 end
 
+# db_host = search(:node, "role:sqlserver")['ipaddress']
+
 template "#{services_path}\\App.connections.config" do
   source 'App.connections.config.erb'
-
+  variables({
+    :db_host => '10.0.1.14',
+    :db_user => 'sa',
+    :db_pass => 'JaCierpieDole-1234'
+    })
   notifies :restart,  "service[Poc.Deploy.WriteWinServiceHost]"
 end
 
