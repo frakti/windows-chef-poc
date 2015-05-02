@@ -1,6 +1,6 @@
 The chef-repo for Windows-based infrastructure PoC
 ===================================================
-The aim of this Proof of Concept project is to see how Chef deals with provisioning Windows-specific environment in typical app Use Case. And then scale it.
+The aim of this Proof of Concept project is to see how [Chef](https://www.chef.io/solutions/windows/) deals with provisioning Windows-specific environment in typical app Use Case. And then scale it.
 - *AS a user I WANT to increase employer salary AND persist it into database*
 - *AS a returning user I WANT to see current salary value fetched from redis cache*
 
@@ -35,6 +35,12 @@ This is one time operation. To simplify it I recommend to use existing Packer te
 
 *If you need different Widndows-based distributions check closer that repo.*
 
+That template uses in the hood OpenSSH to prepare box. If this doesn't fit to your requirements you can:
+- go with **@joefitzgerald** recommendation and uninstall OpenSSH (check README on [packer-windows](https://github.com/joefitzgerald/packer-windows))
+- or try to combine that template with [packer-community/packer-windows-plugins](https://github.com/packer-community/packer-windows-plugins)
+
+*FTR Chef itself is using WinRM, as well as vagrant though prepared Vagrantfile*
+
 ### Build Chef Server
 
 Steps below will build and configure Chef Sever 12 and artefacts repository.
@@ -47,7 +53,7 @@ Scripts are using installation of version 12.0.8, if you want to use different o
 
 ### Build application infrastructure
 
-- run `sh upload.sh`
+- run `./upload.sh` (OS-independent script)
 - Create SQL Server instance by running `vagrant up sql` (issue #1 and #2)
 - Create Load Balancer instance by run `vagrant up lb`
 - Create Application Server instances by running `vagrant up iis1 iis2` (issue #1)
@@ -76,7 +82,7 @@ Solution for this is to run *provisioning* again: `vagrant provision sql`.
 
 TODOs
 -----
-- Fix idempotentcy issues.
+- Fix idempotentcy issues (#1 and #2)
 - Write some tests.
 - Use Chef Search instead of hardcoded IP in db connection string.
 - Disable maintenance mode on VMs while provisioning - it slows down machine performance.
